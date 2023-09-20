@@ -1,17 +1,14 @@
 <template>
   <q-table
-    style="width: 100%; height: 100%"
+    style="width: 100%"
     flat
-    bordered
-    grid
     title="All Pokemons"
-    grid-header
     :rows="pokeData"
     :columns="columns"
-    row-key="name"
     :filter="filter"
-    hide-header
-    @row-click="$emit('row-clicked')"
+    :pagination="initialPagination"
+    row-key="name"
+    @row-click="rowClicked"
   >
     <template v-slot:top-right>
       <q-input
@@ -26,21 +23,47 @@
         </template>
       </q-input>
     </template>
+    <template v-slot:body-cell-image="{ value }">
+      <td class="q-pa-none">
+        <img
+          style="width: 32px"
+          :src="`/public/thumbnails/${value.toString().padStart(3, '0')}.png`"
+        />
+      </td>
+    </template>
   </q-table>
 </template>
 
 <script>
+import { store } from "src/store.js";
+
 export default {
+  setup() {},
   data() {
     return {
+      store,
       pokeData: [],
-      pagination: {
-        page: 1,
-        rowsPerPage: 10,
-      },
       columns: [
         {
-          name: "desc",
+          name: "image",
+          required: true,
+          label: "",
+          align: "left",
+          field: (row) => row.id,
+
+          sortable: true,
+        },
+        {
+          name: "id",
+          required: true,
+          label: "PokeDex id",
+          align: "left",
+          field: (row) => row.id,
+          format: (val) => `${val}`,
+          sortable: true,
+        },
+        {
+          name: "name",
           required: true,
           label: "Name",
           align: "left",
@@ -59,15 +82,31 @@ export default {
         {
           name: "img",
           align: "center",
-          label: "id",
-          field: (row) => row.id,
+          label: "Clicks",
+          field: (row) => {
+            // Each time the row is rendered, we check if the current pokemon has been clicked.
+            let clicked_poke = store.clickedPokemons[row.id];
+            if (clicked_poke) {
+              if (clicked_poke > 1) {
+                return `${clicked_poke} times`;
+              } else {
+                return `${clicked_poke} time`;
+              }
+            } else {
+              return 0;
+            }
+          },
           sortable: true,
         },
       ],
       filter: "",
+      initialPagination: {
+        sortBy: "id",
+        rowsPerPage: 15,
+      },
     };
   },
-  async mounted() {
+  async beforeMount() {
     try {
       const response = await fetch("/pokedex.json");
       if (!response.ok) {
@@ -76,10 +115,13 @@ export default {
       const data = await response.json();
       this.pokeData = data;
     } catch (error) {
-      console.error("Error loading JSON file:", error);
+      console.error("Error loading JSON file: ", error);
     }
   },
-  methods: {},
-  watch: {},
+  methods: {
+    rowClicked(evt, row, index) {
+      store.incrementClick(row);
+    },
+  },
 };
 </script>
