@@ -2,6 +2,8 @@
 
 This is a Single Page Application built using Quasar, the enterprise-ready cross-platform Vue 3 component library.
 
+![](screenshot.png)
+
 - It displays all (809) pokemons up to date, on a table. Featuring all the sprites.
 - It counts how many times the user clicks on each pokemon.
 - On the right side, details of the last pokemon you clicked are shown, such as: base stats, type, and the name in a few languages.
