@@ -62,7 +62,7 @@ The app will be output to the dist/spa folder, and you can use quasar as a webse
 
 ## How is it made?
 
-There are two main Vue components:
+There are three main Vue components:
 
 - `PokeTable.vue` - will fetch and store pokedex data (only one time: on mount), will listen to child's (QTable) component row-click event, will use the store to save the dictionary associating pokemon:clicks.
 - `PokeCard.vue` - will display the last pokemon you clicked by reacting to the lastSelectedPokemon on the store. This card is displayed on the MainLayout.vue.
@@ -94,4 +94,4 @@ I have picked the last out of these solutions, to get familiarized with the Reac
 It has a great advantage: if you wanted to persist the state of the app and synch it between browser tabs, you could store it in the localStorage of the browser.
 But also some downsides: global state that can be arbitrarily mutated by any component is not going to be very maintainable in the long run.
 
-In this case, I think it's fine for a SPA, especially when you want to display global data in components far away from others.
+In this case, I think it's fine for a SPA, especially when you want to ONLY display global data in components far away from others.
