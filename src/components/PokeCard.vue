@@ -6,7 +6,7 @@
       </q-card-section>
 
       <img
-        :src="`/public/thumbnails/${store.lastSelectedPokemon.id
+        :src="`/thumbnails/${store.lastSelectedPokemon.id
           .toString()
           .padStart(3, '0')}.png`"
         style="width: 100px; height: 100px; margin-left: 1em"

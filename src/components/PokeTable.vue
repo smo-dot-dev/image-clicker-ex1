@@ -27,7 +27,7 @@
       <td class="q-pa-none">
         <img
           style="width: 32px"
-          :src="`/public/thumbnails/${value.toString().padStart(3, '0')}.png`"
+          :src="`/thumbnails/${value.toString().padStart(3, '0')}.png`"
         />
       </td>
     </template>
