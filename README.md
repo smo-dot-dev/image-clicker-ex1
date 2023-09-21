@@ -97,3 +97,12 @@ It has a great advantage: if you wanted to persist the state of the app and sync
 But also some downsides: global state that can be arbitrarily mutated by any component is not going to be very maintainable in the long run.
 
 In this case, I think it's fine for a SPA, especially when you want to ONLY display global data in components far away from others.
+
+### License
+See LICENSE.txt
+
+```
+GNU GPLv3
+
+Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+```
